@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SuperHeroApi.Models;
+using System.Xml.Linq;
 
 namespace SuperHeroApi.Controllers
 {
@@ -16,6 +17,12 @@ namespace SuperHeroApi.Controllers
                     FirstName = "Peter",
                     LastName = "Parker",
                     Place = "New York City"
+                },
+                new SuperHero
+                { Id = 2, Name = "Iron Man",
+                    FirstName = "Tony",
+                    LastName = "Stark",
+                    Place = "Malibu"
                 }
             };
 
@@ -24,6 +31,19 @@ namespace SuperHeroApi.Controllers
         {
                 return Ok(superHeroes);
         }
-        
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<SuperHero>>> GetSingleHero(int id)
+        {
+            var hero = superHeroes.Find(x => x.Id == id);
+            if(hero is null)
+            {
+                return NotFound($"Hero with id -> {id} does not exist."); 
+            }
+            return Ok(hero);
+        }
+
+
+
     }
 }
