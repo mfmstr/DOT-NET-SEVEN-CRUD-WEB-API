@@ -33,7 +33,7 @@ namespace SuperHeroApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<SuperHero>>> GetSingleHero(int id)
+        public async Task<ActionResult<SuperHero>> GetSingleHero(int id)
         {
             var hero = superHeroes.Find(x => x.Id == id);
             if(hero is null)
@@ -41,6 +41,13 @@ namespace SuperHeroApi.Controllers
                 return NotFound($"Hero with id -> {id} does not exist."); 
             }
             return Ok(hero);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<List<SuperHero>>> AddHero(SuperHero hero)
+        {
+            superHeroes.Add(hero);
+            return Ok(superHeroes);
         }
 
 
