@@ -43,7 +43,7 @@
             return superHeroes;
         }
 
-        public SuperHero? GetSingleHero(int id)
+        public SuperHero GetSingleHero(int id)
         {
             var hero = superHeroes.Find(x => x.Id == id);
             if (hero is null)
